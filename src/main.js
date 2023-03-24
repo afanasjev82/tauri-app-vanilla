@@ -1,5 +1,4 @@
 const { invoke } = window.__TAURI__.tauri;
-import { getMatches } from '@tauri-apps/api/cli';
 
 let greetInputEl;
 let greetMsgEl;
@@ -18,9 +17,3 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 //window.location.replace("https://google.com")
-
-
-getMatches().then((matches) => {
-  // do something with the { args, subcommand } matches
-  greetMsgEl.textContent = JSON.stringify(null,2,matches.args);
-})

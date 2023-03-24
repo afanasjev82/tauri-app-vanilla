@@ -30,10 +30,16 @@ fn main() {
             //let command = String::from(format!("window.location.replace('{url}')"));
             //let result = window.eval(command.as_str()).expect("Failed");
 
-            let result = window
+            window
                 .eval(&format!("window.location.replace('{url}')", url = url))
                 .unwrap();
-            Ok(result)
+            // only include this code on debug builds
+            #[cfg(debug_assertions)]
+            {
+                window.open_devtools();
+                window.close_devtools();
+            }
+            Ok(())
         })
         .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
