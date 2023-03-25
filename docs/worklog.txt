@@ -177,14 +177,30 @@ As best practice I use multistage container build process:
     1. build executable from source
     2. copy builded windows executable file from bilder stage to docker volume shared with host OS
 
-Tauri app url is changed during Dockerfile build process through support of build-arg DEFAULT_URL
+Known limitations:
+[WebView2Loader.dll]
 
+A binary library WebView2Loader from the WebView2 SDK need to be used, either the DLL WebView2Loader.dll or the static library 
+WebView2LoaderStatic.lib. 
 
+This brings some complexities:
+* When using the msvc toolchain, the static library is used. 
+* When using the gnu toolchain, the static library does not seem to work so the WebView2Loader.dll DLL is used. 
+    You need to make sure that the DLL can be loaded at runtime, e.g. by putting it alongside the built exe files.
+
+Docker linux containers should be used because rust:latest docker images does not have windows/amd64 support.
+Dockerfile builder stage moved rust: alpine dokcer image
 
 #TODO =============================================================================================================================
 1. config tauri.allowList in tauri.conf.json (AllowlistConfig)
 2. config webviewInstallMode in WindowsConfig
 3. use GNU compiler instead of Windows
+4. Dockerfile: use rust:alpine image
 
 cargo tauri build --debug
 cargo tauri dev -- -- https://google.com
+
+
+
+docker build --build-arg DEFAULT_URL=https://neti.ee -f Dockerfile -t afanasjev/tauri-app-builder:latest .
+docker run -v E:\Work\JaanTallinn\tauri-web-client\tauri-app-vanilla\release:/app/release afanasjev/tauri-app-builder:latest
