@@ -2,15 +2,30 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use std::env;
+use std::panic::set_hook;
 use tauri::Manager;
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+fn setup_window(main_window: &tauri::Window, url: Option<String>) {
+    match url {
+        Some(p) => {
+            println!("Window url specified as {p}");
+            // WebView2 url change
+            main_window
+                .eval(&format!("window.location.replace('{p}')"))
+                .expect(&format!("Could not open url: \"{p}\""));
+            //.unwrap();
+        }
+        None => println!("Window url is not specified, using default"),
+    }
 
-use std::panic::set_hook;
+    // DevTools (only include this code on debug builds)
+    #[cfg(debug_assertions)]
+    {
+        println!("DevTools is enabled");
+        main_window.open_devtools();
+        //main_window.close_devtools();
+    }
+}
 
 fn main() {
     set_hook(Box::new(|info| {
@@ -19,29 +34,22 @@ fn main() {
         }
     }));
 
-    let url = env::args()
-        .nth(1)
-        .expect("Please provide a URL as an argument");
+    let url = env::args().nth(1);
+    //.expect("Please provide a URL as an argument");
 
     tauri::Builder::default()
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .setup(move |app: &mut tauri::App| {
-            let window = app.get_window("main").unwrap();
-            //let command = String::from(format!("window.location.replace('{url}')"));
-            //let result = window.eval(command.as_str()).expect("Failed");
+            //let splashscreen_window = app.get_window("splashscreen").unwrap();
+            let main_window = app.get_window("main").unwrap();
 
-            window
-                .eval(&format!("window.location.replace('{url}')", url = url))
-                .unwrap();
-            // only include this code on debug builds
-            #[cfg(debug_assertions)]
-            {
-                window.open_devtools();
-                window.close_devtools();
-            }
+            setup_window(&main_window, url);
+
+            //splashscreen_window.close().unwrap();
+            main_window.show().unwrap();
+
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
         .expect("error running tauri app")
 }
