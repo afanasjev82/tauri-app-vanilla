@@ -12,11 +12,7 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+      "all": true
     },
     "bundle": {
       "active": false,
@@ -27,11 +23,11 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tairi.vanilla.dev",
+      "identifier": "com.tauri.vanilla.dev",
       "targets": "all",
       "windows": {
         "webviewInstallMode": {
-          "type": "embedBootstrapper"
+          "type": "offlineInstaller"
         }
       }
     },

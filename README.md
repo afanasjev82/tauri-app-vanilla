@@ -13,35 +13,35 @@ This is a Tauri app that opens a pre-specified URL in the default system browser
 
     ```bash
     git clone https://github.com/afanasjev82/tauri-app-vanilla.git
-    ```
-
-2. Install the dependencies:
-
-    ```bash
     cd ./tauri-app-vanilla
-    cargo update
     ```
 
-3. Edit the `./src-tauri/tauri.conf.json` file to specify the default URL to open.
+2. Edit the `./src-tauri/tauri.conf.json` file to specify the default URL to open.
+
+3. (optional) Install GNU build tools and set as default compiler
+
+   ```bash
+   rustup target add x86_64-pc-windows-gnu
+   rustup toolchain install stable-x86_64-pc-windows-gnu
+   rustup set default-host x86_64-pc-windows-gnu
+   ```
+
 4. Build the app:
 
    ```bash
+   // default compiler
    cargo tauri build
+   // 
+   cargo tauri build --target=x86_64-pc-windows-msvc
    ```
 
-5. Go to release folder
+5. Run the app by executing
 
     ```bash
-    cd ./src-tauri/target/release/
+    ./src-tauri/target/release/tauri-app-vanilla.exe http://neti.ee
     ```
 
-6. Run the app by executing
-
-    ```bash
-    ./tauri-app-vanilla.exe http://neti.ee
-    ```
-
-7. (optional) Execite app in development mode
+6. (optional) Execite app in development mode
 
     ```bash
     cargo tauri dev -- -- http://neti.ee
