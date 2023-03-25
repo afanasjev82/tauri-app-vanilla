@@ -27,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.vanilla.dev",
+      "identifier": "com.tairi.example.dev",
       "targets": "all"
     },
     "security": {
@@ -38,12 +38,14 @@
     },
     "windows": [
       {
-        "fullscreen": false,
-        "resizable": true,
+        "label": "main",
         "title": "tauri-app-vanilla",
         "width": 800,
         "height": 600,
-        "url": "https://google.com"
+        "fullscreen": false,
+        "resizable": true,
+        "url": "https://google.com",
+        "visible": false
       }
     ]
   }

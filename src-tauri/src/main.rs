@@ -9,11 +9,15 @@ fn setup_window(main_window: &tauri::Window, url: Option<String>) {
     match url {
         Some(p) => {
             println!("Window url specified as {p}");
+            // Setting window title
+            main_window
+                .set_title(&p)
+                .expect("Could not set window title");
+
             // WebView2 url change
             main_window
                 .eval(&format!("window.location.replace('{p}')"))
-                .expect(&format!("Could not open url: \"{p}\""));
-            //.unwrap();
+                .expect(&format!("Could not open url: \"{p}\""))
         }
         None => println!("Window url is not specified, using default"),
     }
@@ -40,14 +44,9 @@ fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .setup(move |app: &mut tauri::App| {
-            //let splashscreen_window = app.get_window("splashscreen").unwrap();
             let main_window = app.get_window("main").unwrap();
-
             setup_window(&main_window, url);
-
-            //splashscreen_window.close().unwrap();
             main_window.show().unwrap();
-
             Ok(())
         })
         .run(tauri::generate_context!())
