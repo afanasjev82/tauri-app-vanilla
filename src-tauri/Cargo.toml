@@ -2,9 +2,9 @@
 name = "tauri-app-vanilla"
 version = "0.0.0"
 description = "A Tauri App"
-authors = ["you"]
+authors = ["Dmitri Afanasjev <adimas@gmail.com>"]
 license = ""
-repository = ""
+repository = "https://github.com/afanasjev82/tauri-app-vanilla"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -13,7 +13,7 @@ edition = "2021"
 tauri-build = { version = "1.2", features = [] }
 
 [dependencies]
-tauri = { version = "1.2", features = ["shell-open"] }
+tauri = { version = "1.2", features = ["shell-open", "windows7-compat"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
