@@ -11,8 +11,19 @@
     "version": "0.0.0"
   },
   "tauri": {
+	"cli": {
+		"description": "Url explorer",
+		"longDescription": "Open specified url in window",
+		"args": [
+			{
+				"name": "url",
+				"index": 1,
+				"takesValue": true
+			}
+		]
+	},
     "allowlist": {
-      "all": true
+		"all": true
     },
     "bundle": {
       "active": false,
