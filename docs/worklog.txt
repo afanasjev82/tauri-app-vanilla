@@ -27,7 +27,6 @@ Non-functional Requirements:
 
 Worklog:
 
-1.day
 In our exmaple web app case Tauri layer provides API for iteractiong with Windows OS. 
 As tauri app frontend is WebView instance manager
 
