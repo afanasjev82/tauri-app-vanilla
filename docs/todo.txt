@@ -1,0 +1,9 @@
+Deliverables:
+[TODO]
+1. config tauri.allowList in tauri.conf.json (AllowlistConfig)
++ 2. config webviewInstallMode in WindowsConfig
++ 3. use GNU compiler instead of Windows
++ 4. cleanup worklog
+
+cargo tauri build --debug
+cargo tauri dev -- -- https://google.com
