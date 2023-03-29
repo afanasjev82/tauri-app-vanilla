@@ -23,7 +23,7 @@
 		]
 	},
     "allowlist": {
-		"all": true
+		  "all": false
     },
     "bundle": {
       "active": false,
