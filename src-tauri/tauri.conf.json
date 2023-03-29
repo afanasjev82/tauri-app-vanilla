@@ -56,7 +56,7 @@
         "height": 600,
         "fullscreen": false,
         "resizable": true,
-        "url": "https://google.com",
+        "url": "index.html",
         "visible": false
       }
     ]
