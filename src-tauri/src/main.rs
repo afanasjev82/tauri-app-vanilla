@@ -4,10 +4,10 @@
 use serde_json::Value;
 use std::env;
 use std::panic::set_hook;
-use tauri::api::cli::Matches;
 use tauri::Manager;
+use tauri_plugin_cli::{CliExt, Matches};
 
-fn setup_window(window: &tauri::Window, url: Option<Value>) {
+fn setup_window(window: &tauri::WebviewWindow, url: Option<Value>) {
     match url {
         Some(p) => {
             println!("Window url specified as {p}");
@@ -37,7 +37,7 @@ fn extract_cli_matches(matches: Matches, arg_name: &str) -> Option<Value> {
         .args
         .get(arg_name)
         .and_then(|arg_data| Some(arg_data.value.clone()))
-        .map(|u| if u == false { None } else { Some(u) })
+        .map(|u| if u == false || u.is_null() { None } else { Some(u) })
         .flatten();
 }
 
@@ -49,14 +49,15 @@ fn main() {
     }));
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_cli::init())
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .setup(move |app: &mut tauri::App| {
-            let url = match app.get_cli_matches() {
+            let url = match app.cli().matches() {
                 Ok(matches) => extract_cli_matches(matches, "url"),
                 Err(_) => panic!("Unable to extract args"),
             };
             println!("URL: {:?}", url);
-            let main_window = app.get_window("main").unwrap();
+            let main_window = app.get_webview_window("main").unwrap();
             setup_window(&main_window, url);
             main_window.show().unwrap();
             Ok(())

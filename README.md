@@ -5,7 +5,8 @@ This is a Tauri app that opens a pre-specified URL in the default system browser
 ## Prerequisites
 
 - [Rust](https://www.rust-lang.org/)
-- [Tauri](https://tauri.app/v1/guides/getting-started/prerequisites/)
+- [Tauri](https://tauri.app/start/prerequisites/)
+- [Tauri CLI](https://tauri.app/reference/cli/) v2: `cargo install tauri-cli --version "^2" --locked`
 
 ## Getting started
 

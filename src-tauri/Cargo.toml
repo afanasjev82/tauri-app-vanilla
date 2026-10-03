@@ -10,15 +10,16 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1.2", features = [] }
+tauri-build = { version = "2.7", features = [] }
 
 [dependencies]
-tauri = { version = "1.2", features = ["cli", "windows7-compat"] }
+tauri = { version = "2.12", features = [] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
+tauri-plugin-cli = "2.5"
+tauri-plugin-window-state = "2.5"
 
 [features]
-# this feature is used for production builds or when `devPath` points to the filesystem
+# this feature is used for production builds or when `devUrl` is not set
 # DO NOT REMOVE!!
 custom-protocol = ["tauri/custom-protocol"]

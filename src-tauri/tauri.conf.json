@@ -1,53 +1,16 @@
 {
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "tauri-app-vanilla",
+  "mainBinaryName": "tauri-app-vanilla",
+  "version": "0.0.0",
+  "identifier": "com.tauri.vanilla.dev",
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "devPath": "../src",
-    "distDir": "../src",
-    "withGlobalTauri": true
+    "frontendDist": "../src"
   },
-  "package": {
-    "productName": "tauri-app-vanilla",
-    "version": "0.0.0"
-  },
-  "tauri": {
-	"cli": {
-		"description": "Url explorer",
-		"longDescription": "Open specified url in window",
-		"args": [
-			{
-				"name": "url",
-				"index": 1,
-				"takesValue": true
-			}
-		]
-	},
-    "allowlist": {
-		  "all": false
-    },
-    "bundle": {
-      "active": false,
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.tauri.vanilla.dev",
-      "targets": "all",
-      "windows": {
-        "webviewInstallMode": {
-          "type": "embedBootstrapper"
-        }
-      }
-    },
-    "security": {
-      "csp": null
-    },
-    "updater": {
-      "active": false
-    },
+  "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "label": "main",
@@ -57,8 +20,41 @@
         "fullscreen": false,
         "resizable": true,
         "url": "index.html",
-        "visible": false
+        "visible": false,
+        "useHttpsScheme": true
       }
-    ]
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": false,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "embedBootstrapper"
+      }
+    }
+  },
+  "plugins": {
+    "cli": {
+      "description": "Url explorer",
+      "longDescription": "Open specified url in window",
+      "args": [
+        {
+          "name": "url",
+          "index": 1,
+          "takesValue": true
+        }
+      ]
+    }
   }
 }
